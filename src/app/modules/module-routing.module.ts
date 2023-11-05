@@ -28,7 +28,7 @@ const routes: Routes = [
         },
         {
           path: '**',
-          redirectTo: 'home', // Redirect to 'home' if the route doesn't match any
+          redirectTo: 'home', 
           pathMatch: 'full'
         }
       ]

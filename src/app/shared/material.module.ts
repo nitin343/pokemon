@@ -30,6 +30,7 @@ import {CdkTreeModule} from '@angular/cdk/tree';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [],
@@ -67,6 +68,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     CdkTableModule,
     CdkTreeModule,
     DragDropModule,
+    MatProgressBarModule
   ]
 })
 export class MaterialModule { }

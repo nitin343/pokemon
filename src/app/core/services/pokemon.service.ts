@@ -12,11 +12,16 @@ export class PokemonService {
   private baseUrl = 'https://pokeapi.co/api/v2/';
     
   constructor(private http: HttpClient) { }
-  private searchPokemonSubject = new BehaviorSubject<PokemonDetail | null>(null);
+  private searchPokemonSubject = new BehaviorSubject(null);
   searchPokemon$ = this.searchPokemonSubject.asObservable();
 
   setSearchPokemon(pokemon: any) {
+    console.log('in service file');
+    
     this.searchPokemonSubject.next(pokemon);
+
+    console.log('out service file');
+
   }
 
 

@@ -22,13 +22,10 @@ import { PokemonService } from 'src/app/core/services/pokemon.service';
 })
 
 export class SearchBarComponent implements OnInit {
-  myControl = new FormControl('');
-  search: FormControl = new FormControl('');
+  searchControl: FormControl = new FormControl('');
   searchPokemon: PokemonDetail = new PokemonDetail();
-  isSearching = false;
  
   pokemons: PokemonDetail[] = [];
-  isLoading: boolean = false;
   isLastPage = false;
   
   
@@ -39,39 +36,36 @@ export class SearchBarComponent implements OnInit {
   private searchTerms = new Subject<string>();
 
   ngOnInit() {
-    this.searchTerms
-    .pipe(
-      debounceTime(100),
-      distinctUntilChanged(),
-      switchMap((term: string) => this.pokemonService.getPokemonDetail(term))
-    )
-    .subscribe({
-      next: (pokemon: PokemonDetail) => {
-        console.log('next');
-        this.searchPokemon = pokemon;
-        this.isLoading = false;
-        this.pokemonService.setSearchPokemon(this.searchPokemon);
-      },
-      error: (error: any) => {
-        this.isLoading = false;
-        if (error.status === 404) {
-          console.log('5');
-          this.pokemonService.setSearchPokemon('');
-        }
-      },
-    });
+    
   }
   
   onSearchPokemon(): void {
-    const value = this.search.value;
+    const value = this.searchControl.value;
     console.log(value);
     
-    if (value === '') {
-      this.isSearching = false;
-    } else {
-      this.isSearching = true;
-      this.isLoading = true;
-      this.searchTerms.next(value); 
+    if (value) {
+      this.searchControl.valueChanges
+    .pipe(
+      debounceTime(600),
+      distinctUntilChanged(),
+      switchMap((term: string) => {
+        console.log(term, 'teerm');
+        
+       return this.pokemonService.getPokemonDetail(term)
+      })
+    )
+    .subscribe({
+      next: (pokemon: PokemonDetail) => {
+        this.searchPokemon = pokemon;
+        this.pokemonService.setSearchPokemon(this.searchPokemon);
+      },
+      error: (error: any) => {
+        if (error.status === 404) {
+          this.pokemonService.setSearchPokemon('')
+        }
+      },
+    });
+      
     }
   }
 

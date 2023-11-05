@@ -5,9 +5,8 @@ import { PokemonDetail } from 'src/app/core/models/pokemon.detail';
 import { PokemonList } from 'src/app/core/models/pokemon.list';
 import { PokemonService } from 'src/app/core/services/pokemon.service';
 import { SharedModule } from 'src/app/shared/shared.module';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
-import { ComponentsModule } from '../components.module';
 
 @Component({
   selector: 'app-list-card',
@@ -18,7 +17,6 @@ import { ComponentsModule } from '../components.module';
     CommonModule,
     SharedModule,
     MatProgressBarModule,
-    ComponentsModule
   ]
 })
 export class ListCardComponent implements OnInit {
@@ -26,7 +24,6 @@ export class ListCardComponent implements OnInit {
   classicMode: boolean = true;
 
   private offset: number;
-  isLoading: boolean = false;
   isLastPage = false;
 
   searchPokemon: PokemonDetail = new PokemonDetail();
@@ -35,51 +32,43 @@ export class ListCardComponent implements OnInit {
 
   constructor(
     private pokemonService: PokemonService,
-              private router: Router,
-              ) { 
-                this.offset = 0 ;
-              }
-
-  ngOnInit(): void {
-    if(this.isSearching == false){
-      this.getPage(this.offset)
-    }
-      this.pokemonService.searchPokemon$.subscribe((pokemon: any) => {
-        if(pokemon){
-          console.log(pokemon);
-          
-          this.isSearching = true
-          this.searchPokemon = pokemon;
-        }else{
-          this.isSearching = false;
-          this.getPage(this.offset)
-        }
-      });
-    
-
-
+    private router: Router,
+  ) {
+    this.offset = 0;
+    this.pokemonService.searchPokemon$.subscribe((pokemon: any) => {
+      if(pokemon.id){
+        this.isSearching = true;
+        this.searchPokemon = pokemon
+      }else{
+        this.isSearching = false;
+      }
+    });
   }
 
+  ngOnInit(): void {
+    this.isSearching = false
+    this.getPage(this.offset)
+  }
 
   getPage(offset: number) {
-    if(!this.isLoading && !this.isLastPage) {
+    if (!this.isLoading && !this.isLastPage) {
       this.isLoading = true;
       this.pokemonService.getPokemonList(offset)
-      .subscribe((list: PokemonList[]) => {
-        if(list.length === 0) {
-          this.isLastPage = true;
-        }
+        .subscribe((list: PokemonList[]) => {
+          if (list.length === 0) {
+            this.isLastPage = true;
+          }
 
-        if(!this.isLastPage) {
-          this.getPokemon(list);
-        }
-      });
+          if (!this.isLastPage) {
+            this.getPokemon(list);
+          }
+        });
     }
   }
 
   onScroll(event: Event): void {
     const element: HTMLDivElement = event.target as HTMLDivElement;
-    if(element.scrollHeight - element.scrollTop < 1000) {
+    if (element.scrollHeight - element.scrollTop < 1000) {
       this.getPage(this.offset);
     }
   }
@@ -92,10 +81,10 @@ export class ListCardComponent implements OnInit {
         this.pokemonService.getPokemonDetail(value.name)
       );
     });
-    
+
     forkJoin([...arr]).subscribe((pokemons: PokemonDetail[]) => {
       this.pokemons.push(...pokemons);
-      this.offset +=20;
+      this.offset += 20;
       this.isLoading = false;
     })
   }
@@ -105,7 +94,7 @@ export class ListCardComponent implements OnInit {
   }
 
 
- 
+
   navigateToDetail(pokemon: PokemonDetail) {
     this.router.navigate(['/pokemon_detail', pokemon.id]);
   }
