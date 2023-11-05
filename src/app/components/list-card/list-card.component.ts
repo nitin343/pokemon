@@ -24,6 +24,7 @@ export class ListCardComponent implements OnInit {
   classicMode: boolean = true;
 
   private offset: number;
+  isLoading: boolean = false;
   isLastPage = false;
 
   searchPokemon: PokemonDetail = new PokemonDetail();
