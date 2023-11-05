@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="card">
+      <div class="header">
+        <div class="id">{{pokemonsDetail?.id}}</div>
+        <div class="title">{{pokemonsDetail?.name|uppercase}}</div>
+        <div class="subtitle">Weight: {{pokemonsDetail?.weight}}</div>
+        <div class="subtitle">Height: {{pokemonsDetail?.height}}</div>
+      </div>
+      <img class="card-image" [src]="'https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/' + pokemonsDetail?.id +'.svg'" [alt]="pokemonsDetail?.name" />
+  
+      <div class="content">
+        <div class="content__type">
+          <p>Type:</p>
+          <div *ngFor="let type of pokemonsDetail?.types">
+            <p>{{type?.type?.name | uppercase}}</p>
+          </div>
+        </div>
+        <div class="content__ability">
+          <p>Abilities:</p>
+          <div *ngFor="let ability of pokemonsDetail?.abilities">
+            <p>{{ability?.ability?.name |uppercase}}</p>
+          </div>
+        </div>
+        <div class="content__stat">
+          <p>Stats:</p>
+          <div *ngFor="let stat of pokemonsDetail?.stats">
+            <p>{{stat?.stat?.name}}: {{stat?.base_stat}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+/* styles.css */
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+* {
+    box-sizing: border-box;
+  }
+
+body {
+    margin: 0;
+    padding: 0;
+  }
+    
+
+$primary-color: #3498db;
+$secondary-color: #FF5722;
+$background-color: #F5F5F5;
+$accent-color: #FFD700;
+$shadow-color: #703737;
+$text-color: #701515;
+$text-color-inverse: #F5F6FF;
+$box-shadow: 0 2px 4px $text-color;
+$border: 1px solid $shadow-color;
+$transition-basic: all 500ms ease;
+$limit: 10;
+$unit: 8px;
+
+// Define a mixin for the font
+@mixin font-roboto {
+  font-family: 'Roboto', sans-serif;
+  font-weight: normal;
+}
+
+
+@mixin flex-Box($primary, $cross, $wrap) {
+  display: flex;
+  justify-content: $primary;
+  align-items: $cross;
+  flex-wrap: $wrap;
+}

@@ -1,0 +1,73 @@
+@import '../../../styles.scss';
+
+.container {
+   height: 99vh;
+  padding: 0 2rem 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  .card {
+    background-color: $background-color;
+    border-radius: 5px;
+    margin: 0 auto;
+    width: 500px;
+    color: $text-color !important; 
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background-color: $background-color;
+      font-size: 20px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+     
+
+      .id {
+        font-weight: bold;
+      }
+
+      .title,
+      .subtitle {
+        font-size: 18px;
+      }
+    }
+
+    img.card-image {
+      display: block;
+      margin: 0 auto;
+      width: 240px;
+    }
+
+    .content {
+      background-color: $background-color;
+      border-radius: 5px;
+      color: $text-color;
+      padding: 1rem;
+
+      p {
+        font-size: 18px;
+       
+      }
+
+      .content__type,
+      .content__ability,
+      .content__stat {
+        border-top: 2px solid lighten($primary-color, 30%);;
+        padding: 10px 0px;
+        margin-bottom: 1rem;
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+.foot {
+  @include flex-Box(space-evenly, center, nowrap);
+  height: 100px;
+}
